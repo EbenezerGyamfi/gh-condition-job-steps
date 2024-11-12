@@ -75,3 +75,11 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+
+  print-out:
+    needs: [deploy, test, build, lint]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print output
+        run: echo "This is a sample output"
