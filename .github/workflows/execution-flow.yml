@@ -46,7 +46,6 @@ jobs:
           path: test.json
   build:
     name: Job for Building
-    if: ${{always()}}
     needs: test
     runs-on: ubuntu-latest
     steps:
