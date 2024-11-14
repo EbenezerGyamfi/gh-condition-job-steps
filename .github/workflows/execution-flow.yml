@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   lint:
+    name: Job for linting
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -20,7 +21,9 @@ jobs:
       - name: Lint code
         run: npm run lint
   test:
+    name: Job for Testing
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -42,6 +45,7 @@ jobs:
           name: test-report
           path: test.json
   build:
+    name: Job for Building
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -78,7 +82,6 @@ jobs:
 
   print-out:
     needs: [deploy, test, build, lint]
-    if: failure()
     runs-on: ubuntu-latest
     steps:
       - name: Print output
